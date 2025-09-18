@@ -214,7 +214,7 @@ input[type="color"] {
   height: 30px;
   padding: 0;
   background: none;
-  cursor: url('images/Pointer.svg') 0 0, pointer;
+  cursor: url('images/Pointer.svg') 0 0;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 0 0 2px white, 0 0 0 4px black;
 }
@@ -247,7 +247,6 @@ input[type="color"]:focus {
   color: white;
   border: none;
   padding: 8px 16px;
-  font-size: 1rem;
   cursor: pointer;
   border-radius: 5px;
   
@@ -274,14 +273,12 @@ input[type="color"]:focus {
   }
 
   .logo {
-    font-size: 1.5rem;
     padding: 10px 0;
   }
 
   .about {
     width: 100%;
     padding: 10px 0;
-    font-size: 1rem;
     text-align: left;
   }
 
@@ -336,6 +333,23 @@ input[type="color"]:focus {
     margin: 10px 0 5px 0;
     padding-bottom: 15px;
   }
+
+
+  .item-info {
+    padding-top: 5px;
+  }
+
+}
+
+.item-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+button,
+button:hover,
+button:focus {
+    cursor: url('images/Pointer.svg') 0 0, auto;
 }
 
 
@@ -355,16 +369,97 @@ input[type="color"]:focus {
       <div class="banner">
 
         <div class="slider" id="carousel" style="--quantity: 10;">
-          <div class="item"><img src="images/artistex1.png" alt="1" /></div>
-          <div class="item"><img src="images/pinpoint.gif" alt="2" /></div>
-          <div class="item"><img src="images/itza.png" alt="3" /></div>
-          <div class="item"><img src="images/ojos.png" alt="4" /></div>
-          <div class="item"><img src="images/itza.png" alt="5" /></div>
-          <div class="item"><img src="images/itza.png" alt="6" /></div>
-          <div class="item"><img src="images/itza.png" alt="7" /></div>
-          <div class="item"><img src="images/itza.png" alt="8" /></div>
-          <div class="item"><img src="images/itza.png" alt="9" /></div>
-          <div class="item"><img src="images/itza.png" alt="10" /></div>
+          <div class="item">
+            <img src="images/artistex1.png" alt="1" />
+            <div class="item-info">
+            <small class="year">2025</small>
+            <small class="links">
+                <a href="https://example.com" target="_blank">Live</a>
+                <a href="https://github.com" target="_blank">Code</a>
+            </small>
+            </div>
+        </div>
+          <div class="item"><img src="images/pinpoint.gif" alt="2" />
+        <div class="item-info">
+            <small class="year">2025</small>
+            <small class="links">
+            <a href="https://example.com" target="_blank">Live</a>
+            <a href="https://github.com" target="_blank">Code</a>
+            </small>
+            </div>
+        </div>
+          <div class="item"><img src="images/itza.png" alt="3" />
+        <div class="item-info">
+            <small class="year">2025</small>
+            <small class="links">
+            <a href="https://example.com" target="_blank">Live</a>
+            <a href="https://github.com" target="_blank">Code</a>
+            </small>
+            </div>
+        </div>
+          <div class="item"><img src="images/ojos.png" alt="4" />
+        <div class="item-info">
+            <small class="year">2025</small>
+            <small class="links">
+            <a href="https://example.com" target="_blank">Live</a>
+            <a href="https://github.com" target="_blank">Code</a>
+            </small>
+            </div>
+        </div>
+          <div class="item"><img src="images/itza.png" alt="5" />
+        <div class="item-info">
+            <small class="year">2025</small>
+            <small class="links">
+            <a href="https://example.com" target="_blank">Live</a>
+            <a href="https://github.com" target="_blank">Code</a>
+            </small>
+            </div>
+        </div>
+          <div class="item"><img src="images/itza.png" alt="6" />
+        <div class="item-info">
+            <small class="year">2025</small>
+            <small class="links">
+            <a href="https://example.com" target="_blank">Live</a>
+            <a href="https://github.com" target="_blank">Code</a>
+            </small>
+            </div>
+        </div>
+          <div class="item"><img src="images/itza.png" alt="7" />
+        <div class="item-info">
+            <small class="year">2025</small>
+            <small class="links">
+            <a href="https://example.com" target="_blank">Live</a>
+            <a href="https://github.com" target="_blank">Code</a>
+            </small>
+            </div>
+        </div>
+          <div class="item"><img src="images/itza.png" alt="8" />
+        <div class="item-info">
+            <small class="year">2025</small>
+            <small class="links">
+            <a href="https://example.com" target="_blank">Live</a>
+            <a href="https://github.com" target="_blank">Code</a>
+            </small>
+            </div>
+        </div>
+          <div class="item"><img src="images/itza.png" alt="9" />
+        <div class="item-info">
+            <small class="year">2025</small>
+            <small class="links">
+            <a href="https://example.com" target="_blank">Live</a>
+            <a href="https://github.com" target="_blank">Code</a>
+            </small>
+            </div>
+        </div>
+          <div class="item"><img src="images/itza.png" alt="10" />
+        <div class="item-info">
+            <small class="year">2025</small>
+            <small class="links">
+            <a href="https://example.com" target="_blank">Live</a>
+            <a href="https://github.com" target="_blank">Code</a>
+            </small>
+            </div>
+        </div>
         </div>
       </div>
 
