@@ -93,7 +93,9 @@ body {
     height: 250px;
     transform-style: preserve-3d;
     transform-origin: center center;
-    animation: autoRun 90s linear infinite;
+    /* animation: autoRun 90s linear infinite; */
+      transition: transform 1.5s ease; /* smooth rotation */
+
     transform-origin: center center;
     transform-style: preserve-3d;
   }
@@ -107,7 +109,7 @@ body {
   }
   .slider .item {
     position: absolute;
-    inset: 0;
+    /* inset: 0; */
     --position: 1;
     --quantity: 10;
     transform: rotateY(calc((var(--position) - 1) * 36deg)) translateZ(550px);
@@ -142,7 +144,7 @@ body {
 
 
 .about {
-    width: 35%;
+    width: 25%;
     text-align: justify;
     padding:  0px 15px;
   }
@@ -240,6 +242,102 @@ input[type="color"]:focus {
 }
 
 
+.carousel-controls button {
+  background: #222;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  
+}
+
+.carousel-controls button:hover,
+.carousel-controls button:focus {
+  background: #555;
+  outline: none;
+}
+
+
+
+@media (max-width: 870px) {
+  body, html {
+    overflow-x: hidden;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 15px;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    padding: 10px 0;
+  }
+
+  .about {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  .banner {
+    height: auto;
+    perspective: none;
+    display: block;
+    padding: 20px 0;
+  }
+
+  .slider {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    transform: none !important;
+    transform-style: flat !important;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 15px;
+    padding-top: 140px;
+      box-sizing: border-box;
+
+  }
+
+  .slider .item {
+    position: static !important;
+    transform: none !important;
+    width: calc(50% - 10px); /* Two in a row with spacing */
+    max-width: 100%;
+      box-sizing: border-box;
+
+  }
+
+  .slider .item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .carousel-controls {
+    display: none !important;
+  }
+
+  .credit,
+  .email {
+    position: static;
+    display: block;
+    text-align: center;
+    margin: 10px 0 5px 0;
+    padding-bottom: 15px;
+  }
+}
+
 
 </style>
 </head>
@@ -255,6 +353,7 @@ input[type="color"]:focus {
             </div>
         </div>
       <div class="banner">
+
         <div class="slider" id="carousel" style="--quantity: 10;">
           <div class="item"><img src="images/artistex1.png" alt="1" /></div>
           <div class="item"><img src="images/pinpoint.gif" alt="2" /></div>
@@ -268,70 +367,128 @@ input[type="color"]:focus {
           <div class="item"><img src="images/itza.png" alt="10" /></div>
         </div>
       </div>
+
+      <div class="carousel-controls" style="position: absolute; top: 15px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; gap: 10px;">
+        <button id="prevBtn" aria-label="Previous item">«</button>
+        <button id="toggleBtn" aria-label="Pause rotation">||</button>
+        <button id="nextBtn" aria-label="Next item">»</button>
+      </div>
+
         <small class="credit">© 2025 — Built from scratch.</small>
         <small class="email"><a href="mailto:tbouchard25@gmail.com">Email</a></small>
 
     </main>
 
-      
 <script>
-    const slider = document.getElementById('carousel');
 
-  const colorPicker = document.getElementById('bgColorPicker');
-  colorPicker.addEventListener('input', (e) => {
-    document.body.style.backgroundColor = e.target.value;
-  });
+const slider = document.getElementById('carousel');
+const totalItems = parseInt(getComputedStyle(slider).getPropertyValue('--quantity')) || 10; 
+const rotateStep = 360 / totalItems;
 
-  // Optional: Set initial color to current background
-  window.addEventListener('load', () => {
-    const computedBg = getComputedStyle(document.body).backgroundColor;
-    // Convert rgb(...) to hex if needed, else default to white
-    function rgbToHex(rgb) {
-      const result = /^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/.exec(rgb);
-      return result
-        ? "#" + 
-          ((1 << 24) + (parseInt(result[1]) << 16) + (parseInt(result[2]) << 8) + parseInt(result[3]))
-          .toString(16).slice(1)
-        : "#ffffff";
-    }
-    colorPicker.value = rgbToHex(computedBg);
-  });
+let currentRotation = 0;
+let autoRotateInterval = null;
+let isAutoRotating = true;
 
-  function isColorDark(r, g, b) {
-    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-    return brightness < 128;
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const toggleBtn = document.getElementById('toggleBtn');
+
+function applyRotation(angle) {
+  slider.style.transform = `rotateX(-9deg) rotateY(${angle}deg)`;
+}
+
+function startAutoRotate() {
+  if (autoRotateInterval) clearInterval(autoRotateInterval);
+  autoRotateInterval = setInterval(() => {
+    currentRotation -= 0.2; // slow rotation speed
+    applyRotation(currentRotation);
+  }, 30);
+  isAutoRotating = true;
+  toggleBtn.textContent = "||";
+  toggleBtn.setAttribute('aria-label', 'Pause rotation');
+}
+
+function stopAutoRotate() {
+  if (autoRotateInterval) {
+    clearInterval(autoRotateInterval);
+    autoRotateInterval = null;
   }
+  isAutoRotating = false;
+  toggleBtn.textContent = "▶";
+  toggleBtn.setAttribute('aria-label', 'Resume rotation');
+}
 
-  colorPicker.addEventListener('input', (e) => {
-    const hex = e.target.value;
-    document.body.style.backgroundColor = hex;
+prevBtn.addEventListener('click', () => {
+  if (isAutoRotating) stopAutoRotate();
+  currentRotation += rotateStep;
+  applyRotation(currentRotation);
+});
 
-    const bigint = parseInt(hex.slice(1), 16);
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
+nextBtn.addEventListener('click', () => {
+  if (isAutoRotating) stopAutoRotate();
+  currentRotation -= rotateStep;
+  applyRotation(currentRotation);
+});
 
-    if (isColorDark(r, g, b)) {
-      document.body.classList.add('dark-bg');
-    } else {
-      document.body.classList.remove('dark-bg');
-    }
-  });
+toggleBtn.addEventListener('click', () => {
+  if (isAutoRotating) {
+    stopAutoRotate();
+  } else {
+    startAutoRotate();
+  }
+});
 
+// Start auto rotation on page load
+startAutoRotate();
 
+// Background color picker logic (your existing code)
+const colorPicker = document.getElementById('bgColorPicker');
+colorPicker.addEventListener('input', (e) => {
+  document.body.style.backgroundColor = e.target.value;
+});
 
+window.addEventListener('load', () => {
+  const computedBg = getComputedStyle(document.body).backgroundColor;
+  function rgbToHex(rgb) {
+    const result = /^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/.exec(rgb);
+    return result
+      ? "#" + 
+        ((1 << 24) + (parseInt(result[1]) << 16) + (parseInt(result[2]) << 8) + parseInt(result[3]))
+        .toString(16).slice(1)
+      : "#ffffff";
+  }
+  colorPicker.value = rgbToHex(computedBg);
+});
+
+function isColorDark(r, g, b) {
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+  return brightness < 128;
+}
+
+colorPicker.addEventListener('input', (e) => {
+  const hex = e.target.value;
+  document.body.style.backgroundColor = hex;
+
+  const bigint = parseInt(hex.slice(1), 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+
+  if (isColorDark(r, g, b)) {
+    document.body.classList.add('dark-bg');
+  } else {
+    document.body.classList.remove('dark-bg');
+  }
+});
 
 setInterval(() => {
   colorPicker.classList.add('shake');
-  
-  // Remove the class after animation ends so it can be re-added next time
   setTimeout(() => {
     colorPicker.classList.remove('shake');
-  }, 400); // Match the duration of your shake animation
-}, 5000); // Shake every 5 seconds (adjust as needed)
+  }, 400);
+}, 5000);
 
-  </script>
+</script>
 
 </body>
-
 </html>
