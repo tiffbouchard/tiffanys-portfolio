@@ -1,20 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="images/Drag.svg" type="image/svg+xml" />
+    <link rel="icon" href="images/Pointer.svg" type="image/svg+xml" />
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Tiffany Bouchard</title>
 <style>
-  body {
+
+    @font-face {
+    font-family: 'Bull5'; /* Choose a descriptive name for your font */
+    src: url('./Bull-5-Trial-Mono-Regular.otf') format('opentype'); /* Adjust the path to your font file */
+    font-weight: normal; /* Optional: define weight if applicable */
+    font-style: normal; /* Optional: define style if applicable */
+    font-display: swap; /* Optional: improve performance by preventing invisible text during font loading */
+    }
+
+.banner, .slider, .item, body {
+  pointer-events: auto;
+    cursor: url('images/Pointer.svg') 0 0, auto;
+
+}
+
+input,
+input:hover,
+input:focus,
+input:active,
+.button,
+.button:hover,
+.button:focus,
+#copyBtn:hover,
+.contactBtn,
+.contactBtn:hover,
+.contactBtn:focus {
+    cursor: url('images/Pointer.svg') 0 0, auto;
+}
+
+@supports (-webkit-touch-callout: none) and (not (not (-webkit-appearance: none))) {
+    input,
+    input:hover,
+    input:focus,
+    input:focus:hover,
+    .button,
+    .button:hover,
+    .button:focus,
+    #copyBtn:hover,
+    .contactBtn,
+    .contactBtn:hover,
+    .contactBtn:focus {
+    cursor: url('images/Pointer.svg') 0 0, auto;
+    }
+
+    body, html {
+    cursor: url('images/Pointer.svg')0 0, auto;
+    }
+    #contact-form:focus-within {
+    cursor: url('images/Pointer.svg') 0 0, auto;
+    }
+}
+
+body, html {
+    cursor: url('images/Pointer.svg')  0 0, auto;
+}
+
+body {
     margin: 0;
+    padding: 0;
+}
+
+a:hover, input:hover {
+    cursor: url('images/Pointer.svg')0 0, auto;
+
+}
+
+body {
     background: #e0e0e0;
-    overflow: hidden;
-    /* cursor: url(images/Drag.svg), auto; */
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Bull5";
   }
-  .banner {
+
+.banner {
     width: 100vw;
     height: 100vh;
     position: relative;
@@ -23,6 +87,7 @@
     justify-content: center;
     align-items: center;
   }
+
   .slider {
     width: 200px;
     height: 250px;
@@ -60,20 +125,23 @@
   .slider .item img {
     width: 100%;
     height: auto;
-    object-fit: cover;
   }
 
-  .footer {
-    position: absolute;
-    bottom: 0;
-    z-index: 9;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    width: 98%;
-  }
 
-  .about {
+.credit {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+}
+
+.email {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+
+
+.about {
     width: 35%;
     text-align: justify;
     padding:  0px 15px;
@@ -97,17 +165,11 @@
   }
   input[type="color"] {
     border: none;
-    outline: none;
-    cursor: pointer;
     width: 50px;
     height: 50px;
     padding: 0;
     background: none;
   }
-/* 
-  input:hover, a:hover {
-        cursor: url(images/Drag.svg), auto;
-  } */
 
 body.dark-bg, 
   body.dark-bg .footer, 
@@ -139,81 +201,81 @@ body.dark-bg,
     padding: 15px;
 }
 
+
+
+input[type="color"] {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid #000;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: none;
+  cursor: url('images/Pointer.svg') 0 0, pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px black;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: 50%;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
+input[type="color"]:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 5px #000;
+}
+
+input[type="color"]:focus {
+  outline: 2px dotted #000;
+  outline-offset: 4px;
+  transform: scale(1.05); /* Optional subtle scale */
+  box-shadow: none; /* Removes extra glow if you had one */
+}
+
+
+
 </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="logo">Tiffany</div>
-        <div class="about">I'm a developer + designer. I like making websites that move, react, and feel alive. Right now, I'm building <a href="https://pinpointpinpoint.com" target="_blank">Pinpoint Studio</a>.</div>
-        <div class="color-picker-container">
-        <input type="color" id="bgColorPicker" title="Pick background color" />
+    <main>
+
+        <div class="header">
+            <div class="logo">Tiffany Bouchard</div>
+            <div class="about">I'm a developer + designer. I like making websites that move, react, and feel alive. Right now, I'm working on <a href="https://pinpointpinpoint.com" target="_blank">Pinpoint Studio</a>.</div>
+            <div class="color-picker-container">
+            <input type="color" id="bgColorPicker" title="Pick background color" />
+            </div>
         </div>
-    </div>
-  <div class="banner">
-    <div class="slider" id="carousel" style="--quantity: 10;">
-      <div class="item"><img src="images/artistex1.png" alt="1" /></div>
-      <div class="item"><img src="images/pinpoint.gif" alt="2" /></div>
-      <div class="item"><img src="images/itza.png" alt="3" /></div>
-      <div class="item"><img src="images/ojos.png" alt="4" /></div>
-      <div class="item"><img src="images/itza.png" alt="5" /></div>
-      <div class="item"><img src="images/itza.png" alt="6" /></div>
-      <div class="item"><img src="images/itza.png" alt="7" /></div>
-      <div class="item"><img src="images/itza.png" alt="8" /></div>
-      <div class="item"><img src="images/itza.png" alt="9" /></div>
-      <div class="item"><img src="images/itza.png" alt="10" /></div>
-    </div>
-  </div>
-       <div class="footer">
-        <small>© 2025 Tiffany Bouchard — Built from scratch.</small>
-        <!-- <small><a href="mailto:tbouchard25@gmail.com">Email</a></small> -->
+      <div class="banner">
+        <div class="slider" id="carousel" style="--quantity: 10;">
+          <div class="item"><img src="images/artistex1.png" alt="1" /></div>
+          <div class="item"><img src="images/pinpoint.gif" alt="2" /></div>
+          <div class="item"><img src="images/itza.png" alt="3" /></div>
+          <div class="item"><img src="images/ojos.png" alt="4" /></div>
+          <div class="item"><img src="images/itza.png" alt="5" /></div>
+          <div class="item"><img src="images/itza.png" alt="6" /></div>
+          <div class="item"><img src="images/itza.png" alt="7" /></div>
+          <div class="item"><img src="images/itza.png" alt="8" /></div>
+          <div class="item"><img src="images/itza.png" alt="9" /></div>
+          <div class="item"><img src="images/itza.png" alt="10" /></div>
+        </div>
+      </div>
+        <small class="credit">© 2025 — Built from scratch.</small>
+        <small class="email"><a href="mailto:tbouchard25@gmail.com">Email</a></small>
 
-       </div> 
+    </main>
+
       
-
-
-
 <script>
     const slider = document.getElementById('carousel');
-    let isDragging = false;
-    let startX = 0;
-    let currentYAngle = 0;
-
-    slider.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      startX = e.clientX;
-    });
-
-    window.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
-
-    window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      const dx = e.clientX - startX;
-      startX = e.clientX;
-      currentYAngle += dx * 0.3; // Sensitivity
-      slider.style.transform = `rotateX(-10deg) rotateY(${currentYAngle}deg)`;
-    });
-
-    // Optional: Touch support
-    slider.addEventListener('touchstart', (e) => {
-      isDragging = true;
-      startX = e.touches[0].clientX;
-    });
-
-    slider.addEventListener('touchend', () => {
-      isDragging = false;
-    });
-
-    slider.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
-      const dx = e.touches[0].clientX - startX;
-      startX = e.touches[0].clientX;
-      currentYAngle += dx * 0.3;
-      slider.style.transform = `rotateX(-10deg) rotateY(${currentYAngle}deg)`;
-    });
-
 
   const colorPicker = document.getElementById('bgColorPicker');
   colorPicker.addEventListener('input', (e) => {
