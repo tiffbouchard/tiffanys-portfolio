@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="images/Drag.svg" type="image/svg+xml" />
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tiffany Bouchard</title>
+<style>
+  body {
+    margin: 0;
+    background: #e0e0e0;
+    overflow: hidden;
+    /* cursor: url(images/Drag.svg), auto; */
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .banner {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .slider {
+    width: 200px;
+    height: 250px;
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    animation: autoRun 90s linear infinite;
+    transform-origin: center center;
+    transform-style: preserve-3d;
+  }
+  @keyframes autoRun {
+    from {
+      transform: rotateX(-9deg) rotateY(0deg);
+    }
+    to {
+      transform: rotateX(-9deg) rotateY(360deg);
+    }
+  }
+  .slider .item {
+    position: absolute;
+    inset: 0;
+    --position: 1;
+    --quantity: 10;
+    transform: rotateY(calc((var(--position) - 1) * 36deg)) translateZ(550px);
+  }
+  .slider .item:nth-child(1) { --position: 1; }
+  .slider .item:nth-child(2) { --position: 2; }
+  .slider .item:nth-child(3) { --position: 3; }
+  .slider .item:nth-child(4) { --position: 4; }
+  .slider .item:nth-child(5) { --position: 5; }
+  .slider .item:nth-child(6) { --position: 6; }
+  .slider .item:nth-child(7) { --position: 7; }
+  .slider .item:nth-child(8) { --position: 8; }
+  .slider .item:nth-child(9) { --position: 9; }
+  .slider .item:nth-child(10) { --position: 10; }
+  .slider .item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    z-index: 9;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    width: 98%;
+  }
+
+  .about {
+    width: 35%;
+    text-align: justify;
+    padding:  0px 15px;
+  }
+
+  .header {
+    position: absolute;
+    top: 0;
+    z-index: 9;
+  }
+
+  .color-picker-container {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    
+    /* background: rgba(0, 0, 0, 0.8);
+    padding: 4px;
+    border-radius: 0; */
+    z-index: 9999;
+  }
+  input[type="color"] {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    background: none;
+  }
+/* 
+  input:hover, a:hover {
+        cursor: url(images/Drag.svg), auto;
+  } */
+
+body.dark-bg, 
+  body.dark-bg .footer, 
+  body.dark-bg .header, 
+  body.dark-bg .about, 
+  body.dark-bg a {
+    color: #eee;
+  }
+
+  body.dark-bg a {
+    color: #aad8ff;
+  }
+
+
+  @keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+.logo {
+    padding: 15px;
+}
+
+</style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo">Tiffany</div>
+        <div class="about">I'm a developer + designer. I like making websites that move, react, and feel alive. Right now, I'm building <a href="https://pinpointpinpoint.com" target="_blank">Pinpoint Studio</a>.</div>
+        <div class="color-picker-container">
+        <input type="color" id="bgColorPicker" title="Pick background color" />
+        </div>
+    </div>
+  <div class="banner">
+    <div class="slider" id="carousel" style="--quantity: 10;">
+      <div class="item"><img src="images/artistex1.png" alt="1" /></div>
+      <div class="item"><img src="images/pinpoint.gif" alt="2" /></div>
+      <div class="item"><img src="images/itza.png" alt="3" /></div>
+      <div class="item"><img src="images/ojos.png" alt="4" /></div>
+      <div class="item"><img src="images/itza.png" alt="5" /></div>
+      <div class="item"><img src="images/itza.png" alt="6" /></div>
+      <div class="item"><img src="images/itza.png" alt="7" /></div>
+      <div class="item"><img src="images/itza.png" alt="8" /></div>
+      <div class="item"><img src="images/itza.png" alt="9" /></div>
+      <div class="item"><img src="images/itza.png" alt="10" /></div>
+    </div>
+  </div>
+       <div class="footer">
+        <small>© 2025 Tiffany Bouchard — Built from scratch.</small>
+        <!-- <small><a href="mailto:tbouchard25@gmail.com">Email</a></small> -->
+
+       </div> 
+      
+
+
+
+<script>
+    const slider = document.getElementById('carousel');
+    let isDragging = false;
+    let startX = 0;
+    let currentYAngle = 0;
+
+    slider.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      startX = e.clientX;
+      currentYAngle += dx * 0.3; // Sensitivity
+      slider.style.transform = `rotateX(-10deg) rotateY(${currentYAngle}deg)`;
+    });
+
+    // Optional: Touch support
+    slider.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+    });
+
+    slider.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+
+    slider.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const dx = e.touches[0].clientX - startX;
+      startX = e.touches[0].clientX;
+      currentYAngle += dx * 0.3;
+      slider.style.transform = `rotateX(-10deg) rotateY(${currentYAngle}deg)`;
+    });
+
+
+  const colorPicker = document.getElementById('bgColorPicker');
+  colorPicker.addEventListener('input', (e) => {
+    document.body.style.backgroundColor = e.target.value;
+  });
+
+  // Optional: Set initial color to current background
+  window.addEventListener('load', () => {
+    const computedBg = getComputedStyle(document.body).backgroundColor;
+    // Convert rgb(...) to hex if needed, else default to white
+    function rgbToHex(rgb) {
+      const result = /^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/.exec(rgb);
+      return result
+        ? "#" + 
+          ((1 << 24) + (parseInt(result[1]) << 16) + (parseInt(result[2]) << 8) + parseInt(result[3]))
+          .toString(16).slice(1)
+        : "#ffffff";
+    }
+    colorPicker.value = rgbToHex(computedBg);
+  });
+
+  function isColorDark(r, g, b) {
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    return brightness < 128;
+  }
+
+  colorPicker.addEventListener('input', (e) => {
+    const hex = e.target.value;
+    document.body.style.backgroundColor = hex;
+
+    const bigint = parseInt(hex.slice(1), 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+
+    if (isColorDark(r, g, b)) {
+      document.body.classList.add('dark-bg');
+    } else {
+      document.body.classList.remove('dark-bg');
+    }
+  });
+
+
+
+
+setInterval(() => {
+  colorPicker.classList.add('shake');
+  
+  // Remove the class after animation ends so it can be re-added next time
+  setTimeout(() => {
+    colorPicker.classList.remove('shake');
+  }, 400); // Match the duration of your shake animation
+}, 5000); // Shake every 5 seconds (adjust as needed)
+
+  </script>
+
+</body>
+
+</html>
