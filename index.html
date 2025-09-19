@@ -246,8 +246,43 @@ input[type="color"]:focus {
   box-shadow: none; /* Removes extra glow if you had one */
 }
 
-
 .carousel-controls button {
+  background: none;
+  border: 2px solid #000;
+  width: 30px;
+  height: 30px;
+  color: black;
+  font-size: 16px;
+  font-family: "Bull5", sans-serif;
+  padding: 0;
+  cursor: url('images/Pointer.svg') 0 0, auto;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px black;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+
+}
+
+.carousel-controls button:hover,
+.carousel-controls button:focus {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 5px #000;
+  outline: none;
+}
+
+.carousel-controls button:focus {
+  outline: 2px dotted #000;
+  outline-offset: 4px;
+  transform: scale(1.05);
+  box-shadow: none;
+}
+
+
+
+/* .carousel-controls button {
   background: #222;
   color: white;
   border: none;
@@ -261,7 +296,7 @@ input[type="color"]:focus {
 .carousel-controls button:focus {
   background: #555;
   outline: none;
-}
+} */
 
 
 
@@ -374,6 +409,12 @@ button:focus {
   font-size: 0.75rem;
 }
 
+.carousel-controls button span {
+
+  margin-top: -3px;
+}
+
+
 
 </style>
 </head>
@@ -479,10 +520,10 @@ button:focus {
         </div>
       </div>
 
-      <div class="carousel-controls" style="position: absolute; top: 15px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; gap: 10px;">
-        <button id="prevBtn" aria-label="Previous item">«</button>
-        <button id="toggleBtn" aria-label="Pause rotation">||</button>
-        <button id="nextBtn" aria-label="Next item">»</button>
+      <div class="carousel-controls" style="position: absolute; top: 15px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; gap: 15px;">
+        <button id="prevBtn" aria-label="Previous item"><span>«</span></button>
+        <button id="toggleBtn" aria-label="Pause rotation"><span>||</span></button>
+        <button id="nextBtn" aria-label="Next item"><span>»</span></button>
       </div>
 
         <small class="credit">© 2025 — Built from scratch.</small>
